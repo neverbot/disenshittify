@@ -1,0 +1,12 @@
+/* Functional stub only. Visual design is owned by /impeccable in a later pass. */
+:root { font-family: system-ui, sans-serif; }
+body { margin: 0; min-width: 260px; }
+.popup { padding: 12px 14px; }
+.popup__title { font-size: 14px; font-weight: 600; margin: 0 0 8px; }
+.popup__master { display: flex; justify-content: space-between; align-items: center;
+  padding-bottom: 8px; margin-bottom: 8px; border-bottom: 1px solid #ddd; }
+.popup__group-title { font-size: 12px; text-transform: uppercase; letter-spacing: .04em;
+  color: #666; margin: 10px 0 4px; }
+.feature { display: flex; align-items: flex-start; gap: 8px; padding: 4px 0; }
+.feature__label { font-size: 13px; }
+.feature__desc { font-size: 11px; color: #777; }
