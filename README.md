@@ -45,4 +45,4 @@ npm run build   # production build + packaged .xpi
 
 ## License
 
-TBD.
+[MIT](LICENSE) © neverbot
