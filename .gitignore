@@ -1,0 +1,34 @@
+# Claude Code local project context / config
+/.claude/
+
+# Superpowers specs / plans (local working docs)
+/docs/superpowers/
+
+# Scratch / throwaway artefacts (screenshots, extracted refs, debug dumps)
+/.scratch/
+
+# Build output / packaged extension
+/dist/
+/web-ext-artifacts/
+*.xpi
+*.zip
+
+# Dependencies
+/node_modules/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Editor / OS cruft
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Logs
+*.log
+npm-debug.log*
