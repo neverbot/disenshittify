@@ -4,6 +4,10 @@
 # Superpowers specs / plans (local working docs)
 /docs/superpowers/
 
+# impeccable design context (local working docs)
+/product.md
+/design.md
+
 # Scratch / throwaway artefacts (screenshots, extracted refs, debug dumps)
 /.scratch/
 

@@ -6,6 +6,7 @@ import { getConfig, setValue } from "../shared/storage.js";
 function makeCheckbox(doc, id, checked, onChange) {
   const input = doc.createElement("input");
   input.type = "checkbox";
+  input.className = "switch";
   input.setAttribute("data-id", id);
   input.checked = checked;
   input.addEventListener("change", () => onChange(id, input.checked));
@@ -43,17 +44,18 @@ export function renderPopup(root, features, config, onChange) {
     for (const feature of features.filter((f) => f.platform === platform)) {
       const row = doc.createElement("label");
       row.className = "feature";
-      row.appendChild(makeCheckbox(doc, feature.id, enabled[feature.id], onChange));
       const text = doc.createElement("span");
+      text.className = "feature__text";
       const label = doc.createElement("span");
       label.className = "feature__label";
       label.textContent = feature.title;
       const desc = doc.createElement("span");
       desc.className = "feature__desc";
-      desc.textContent = " — " + feature.description;
+      desc.textContent = feature.description;
       text.appendChild(label);
       text.appendChild(desc);
       row.appendChild(text);
+      row.appendChild(makeCheckbox(doc, feature.id, enabled[feature.id], onChange));
       root.appendChild(row);
     }
   }
