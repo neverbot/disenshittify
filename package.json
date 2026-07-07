@@ -1,0 +1,21 @@
+{
+  "name": "disenshittify",
+  "version": "0.1.0",
+  "description": "Firefox extension that removes enshittification features from platforms (YouTube first)",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "node esbuild.config.mjs",
+    "dev": "concurrently -k -n esbuild,web-ext \"node esbuild.config.mjs --watch\" \"web-ext run --source-dir dist\"",
+    "lint": "npm run build && web-ext lint --source-dir dist",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "esbuild": "^0.24.0",
+    "happy-dom": "^15.11.0",
+    "vitest": "^2.1.0",
+    "web-ext": "^8.3.0"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "disenshittify",
+  "version": "0.1.0",
+  "description": "Removes enshittification features from platforms. MVP: YouTube.",
+  "icons": { "48": "icons/icon.svg", "96": "icons/icon.svg" },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "disenshittify",
+    "default_icon": "icons/icon.svg"
+  },
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*", "https://m.youtube.com/*"],
+      "js": ["platforms/youtube.js"],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "disenshittify@neverbot.com",
+      "strict_min_version": "109.0"
+    }
+  }
+}
