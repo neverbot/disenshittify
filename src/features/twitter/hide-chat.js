@@ -7,10 +7,10 @@ export default {
   title: "Hide Chat",
   description: "Removes Chat from the sidebar and the floating chat dock.",
   defaultEnabled: true,
-  probe: 'a[href="/i/chat"], [data-testid="DMDrawer"]',
+  probe: 'a[href="/i/chat"], [data-testid="chat-drawer-main"]',
   css: `
     header nav a[href="/i/chat"],
-    [data-testid="DMDrawer"] {
+    [data-testid="chat-drawer-main"] {
       display: none !important;
     }
   `,
