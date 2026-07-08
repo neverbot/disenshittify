@@ -11,6 +11,7 @@ import twitterForceFollowing from "../features/twitter/force-following.js";
 import twitterHidePremium from "../features/twitter/hide-premium.js";
 import twitterHideSidebarWidgets from "../features/twitter/hide-sidebar-widgets.js";
 import twitterHideGrok from "../features/twitter/hide-grok.js";
+import twitterHideFloatingButtons from "../features/twitter/hide-floating-buttons.js";
 
 export const features = [
   hideHomeFeed,
@@ -26,6 +27,7 @@ export const features = [
   twitterHidePremium,
   twitterHideSidebarWidgets,
   twitterHideGrok,
+  twitterHideFloatingButtons,
 ];
 
 export function featuresByPlatform(platform) {
