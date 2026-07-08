@@ -12,11 +12,15 @@ export default {
       display: none !important;
     }
 
-    /* Hide the end-of-playback recommendation overlay (the video wall grid
-       shown over the player when a video finishes). */
+    /* Hide the end-of-playback recommendations: the auto video-wall grid and
+       the creator-placed end-screen elements (video/playlist cards overlaid on
+       the player in the final seconds). */
     .html5-endscreen,
     .ytp-endscreen-content,
-    .ytp-videowall-still {
+    .ytp-videowall-still,
+    .ytp-ce-element,
+    .ytp-ce-covering-overlay,
+    .ytp-ce-element-shadow {
       display: none !important;
     }
 
