@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { renderPopup } from "../src/popup/popup.js";
 import { MASTER_KEY } from "../src/shared/constants.js";
+import { FEEDBACK } from "../src/shared/feedback.js";
 
 const features = [
   { id: "youtube.a", platform: "youtube", title: "Feature A", description: "does A", defaultEnabled: true },
@@ -14,11 +15,28 @@ describe("renderPopup", () => {
     root = document.getElementById("app");
   });
 
-  it("renders one checkbox per feature plus a master switch", () => {
+  it("renders a checkbox per feature, the master, and 3 feedback toggles", () => {
     renderPopup(root, features, {}, () => {});
     const boxes = root.querySelectorAll('input[type="checkbox"]');
-    // 2 features + 1 master
-    expect(boxes).toHaveLength(3);
+    // 2 features + 1 master + 3 feedback
+    expect(boxes).toHaveLength(6);
+  });
+
+  it("renders feedback toggles, default on", () => {
+    renderPopup(root, features, {}, () => {});
+    expect(root.querySelector(`input[data-id="${FEEDBACK.toast}"]`).checked).toBe(true);
+    expect(root.querySelector(`input[data-id="${FEEDBACK.badge}"]`).checked).toBe(true);
+    expect(root.querySelector(`input[data-id="${FEEDBACK.popup}"]`).checked).toBe(true);
+  });
+
+  it("shows per-feature hit counts when a report is passed", () => {
+    const report = { counts: { "youtube.a": 4, "youtube.b": 0 } };
+    renderPopup(root, features, {}, () => {}, report);
+    const hits = root.querySelectorAll(".feature__hits");
+    expect(hits).toHaveLength(2);
+    expect(hits[0].textContent).toBe("4");
+    expect(hits[0].classList.contains("is-hit")).toBe(true);
+    expect(hits[1].classList.contains("is-idle")).toBe(true);
   });
 
   it("reflects resolved enabled state (default + master on)", () => {
