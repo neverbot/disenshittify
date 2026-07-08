@@ -12,27 +12,23 @@ export default {
       display: none !important;
     }
 
-    /* Cap the watch column at ~80% of the available width and center it, so
-       the player has breathing room instead of filling edge to edge. Clamped
-       against the aspect-derived max so it never overshoots. Selector kept
-       loose (no [flexy]/[is-two-columns_] requirement) so it survives the
-       layout variants YouTube serves to signed-in accounts. */
-    ytd-watch-flexy:not([theater]):not([fullscreen]) #primary.ytd-watch-flexy {
-      max-width: min(
+    /* Drive the player size from YouTube's own width variable (the value it
+       reads when sizing the video), so toggling live during playback reflows
+       correctly. Target ~80% of the available width, guarded by 90vh worth of
+       16:9 so it never grows taller than the viewport on wide screens. */
+    ytd-watch-flexy:not([theater]):not([fullscreen]) {
+      --ytd-watch-flexy-max-player-width: min(
         calc((100vw - 48px) * 0.8),
-        calc(
-          var(--ytd-watch-flexy-chat-max-height) *
-          var(--ytd-watch-flexy-width-ratio) /
-          var(--ytd-watch-flexy-height-ratio)
-        )
+        calc(90vh * 16 / 9)
       ) !important;
-      margin-inline: auto !important;
-      flex-grow: 0 !important;
     }
 
-    /* Let the player fill the (now capped) primary column. */
-    ytd-watch-flexy:not([theater]):not([fullscreen]) {
-      --ytd-watch-flexy-max-player-width: 100vw !important;
+    /* Match the primary column to that same width and center it, so the video
+       and its container agree (no size mismatch) and it sits with air on both
+       sides. */
+    ytd-watch-flexy:not([theater]):not([fullscreen]) #primary.ytd-watch-flexy {
+      max-width: min(calc((100vw - 48px) * 0.8), calc(90vh * 16 / 9)) !important;
+      margin-inline: auto !important;
     }
 
     /* Hard guarantee: never allow a horizontal scroll area to exist on the
