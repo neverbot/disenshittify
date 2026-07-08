@@ -12,7 +12,10 @@ export default {
     button[aria-label="Grok"],
     button[aria-label="Grok actions"],
     [aria-label="Explain this post"],
-    [aria-label="Explica esta publicación"] {
+    [aria-label="Explica esta publicación"],
+    /* The "Profile Summary" Grok button in profile HoverCards. It carries no
+       testid/aria (the follow button does), so target the testid-less button. */
+    [data-testid="HoverCard"] button:not([data-testid]) {
       display: none !important;
     }
   `,
