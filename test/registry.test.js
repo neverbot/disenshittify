@@ -2,8 +2,8 @@ import { describe, it, expect } from "vitest";
 import { features, featuresByPlatform } from "../src/shared/registry.js";
 
 describe("registry", () => {
-  it("contains the 4 MVP YouTube features", () => {
-    expect(features).toHaveLength(4);
+  it("contains the YouTube features", () => {
+    expect(features).toHaveLength(8);
   });
 
   it("has no duplicate ids", () => {
@@ -29,7 +29,7 @@ describe("registry", () => {
   });
 
   it("featuresByPlatform filters correctly", () => {
-    expect(featuresByPlatform("youtube")).toHaveLength(4);
+    expect(featuresByPlatform("youtube")).toHaveLength(8);
     expect(featuresByPlatform("nonexistent")).toHaveLength(0);
   });
 });
