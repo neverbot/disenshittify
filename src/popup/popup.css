@@ -85,12 +85,21 @@ body {
 }
 
 .popup__group-title {
+  display: inline-block;
   margin: 18px 0 9px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--text-muted);
+}
+
+/* The title carries its own text-width underline, so no full-width divider
+   directly under it. */
+.popup__group-title + .feature {
+  border-top: none;
 }
 
 /* Feature row: text left, switch right, hairline between. */
