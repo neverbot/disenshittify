@@ -14,8 +14,10 @@ export default {
 
     /* Cap the watch column at ~80% of the available width and center it, so
        the player has breathing room instead of filling edge to edge. Clamped
-       against the aspect-derived max so it never overshoots. */
-    ytd-watch-flexy[flexy][is-two-columns_]:not([theater]):not([fullscreen]) #primary.ytd-watch-flexy {
+       against the aspect-derived max so it never overshoots. Selector kept
+       loose (no [flexy]/[is-two-columns_] requirement) so it survives the
+       layout variants YouTube serves to signed-in accounts. */
+    ytd-watch-flexy:not([theater]):not([fullscreen]) #primary.ytd-watch-flexy {
       max-width: min(
         calc((100vw - 48px) * 0.8),
         calc(
@@ -29,7 +31,7 @@ export default {
     }
 
     /* Let the player fill the (now capped) primary column. */
-    ytd-watch-flexy[flexy][is-two-columns_]:not([theater]):not([fullscreen]) {
+    ytd-watch-flexy:not([theater]):not([fullscreen]) {
       --ytd-watch-flexy-max-player-width: 100vw !important;
     }
 
