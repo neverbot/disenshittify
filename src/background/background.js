@@ -1,6 +1,16 @@
 import { FEEDBACK } from "../shared/feedback.js";
+import { MASTER_KEY } from "../shared/constants.js";
 
 const api = typeof browser !== "undefined" ? browser : chrome;
+
+// Toolbar icon reflects the master switch: blue when enabled, grey when off.
+function applyIcon() {
+  const area = api.storage.sync || api.storage.local;
+  area.get(MASTER_KEY, (items) => {
+    const on = (items || {})[MASTER_KEY] !== false;
+    api.action.setIcon({ path: on ? "icons/icon.svg" : "icons/icon-off.svg" });
+  });
+}
 
 // Per-tab hit report, so the popup can ask "what did we hide on the active tab?"
 const reports = new Map(); // tabId -> { counts, activeHitCount, totalHidden }
@@ -13,6 +23,7 @@ function badgeEnabled() {
 }
 
 api.action.setBadgeBackgroundColor({ color: "#1f6feb" });
+applyIcon();
 
 api.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (!msg || !msg.type) return;
@@ -34,3 +45,7 @@ api.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 });
 
 api.tabs.onRemoved.addListener((tabId) => reports.delete(tabId));
+
+api.storage.onChanged.addListener((changes) => {
+  if (changes[MASTER_KEY]) applyIcon();
+});
