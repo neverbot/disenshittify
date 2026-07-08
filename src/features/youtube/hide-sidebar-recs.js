@@ -31,10 +31,9 @@ export default {
       margin-inline: auto !important;
     }
 
-    /* Hard guarantee: never allow a horizontal scroll area to exist on the
-       watch page. Even if the width math is imperfect, clip (not scroll)
-       means the arrow keys can never move a page scroll and hide the video. */
-    ytd-app {
+    /* Hard guarantee against a horizontal scroll area on the watch page,
+       scoped to the watch container so it never affects scrolling elsewhere. */
+    ytd-watch-flexy:not([theater]):not([fullscreen]) {
       overflow-x: clip !important;
     }
   `,
