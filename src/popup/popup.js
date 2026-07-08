@@ -149,10 +149,10 @@ function tabsQuery(query) {
   });
 }
 
-function sendMessage(msg) {
+function sendMessageToTab(tabId, msg) {
   return new Promise((resolve) => {
     try {
-      const maybe = api.runtime.sendMessage(msg, (res) => resolve(res));
+      const maybe = api.tabs.sendMessage(tabId, msg, (res) => resolve(res));
       if (maybe && typeof maybe.then === "function") maybe.then(resolve, () => resolve(null));
     } catch {
       resolve(null);
@@ -160,11 +160,13 @@ function sendMessage(msg) {
   });
 }
 
+// Ask the active tab's content script directly for live hit counts. This is
+// robust against the MV3 background event page dropping its in-memory report.
 async function getActiveReport() {
   const tabs = await tabsQuery({ active: true, currentWindow: true });
   const tabId = tabs[0] && tabs[0].id;
   if (tabId == null) return null;
-  return sendMessage({ type: "dsh:getReport", tabId });
+  return sendMessageToTab(tabId, { type: "dsh:getCounts" });
 }
 
 async function bootstrap() {

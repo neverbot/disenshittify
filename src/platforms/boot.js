@@ -61,6 +61,16 @@ export function boot(platform, { navEvents = [] } = {}) {
 
   onConfigChanged(() => apply());
 
+  // The popup asks the active tab's content script for live counts (robust
+  // against the MV3 background event page unloading its in-memory report).
+  api.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+    if (msg && msg.type === "dsh:getCounts") {
+      const enabled = resolveEnabled(features, currentConfig);
+      const counts = countHits(features, enabled);
+      sendResponse({ counts, ...summarize(counts) });
+    }
+  });
+
   for (const ev of navEvents) {
     window.addEventListener(ev, () => {
       toastShownForNav = false;
