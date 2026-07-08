@@ -15,8 +15,11 @@ export default {
     /* Drive the player size from YouTube's own width variable (the value it
        reads when sizing the video), so toggling live during playback reflows
        correctly. Target ~80% of the available width, guarded by 90vh worth of
-       16:9 so it never grows taller than the viewport on wide screens. */
-    ytd-watch-flexy:not([theater]):not([fullscreen]) {
+       16:9 so it never grows taller than the viewport on wide screens.
+       Vertical/Short videos (is-vertical-video_) are excluded — widening them
+       makes a portrait player overflow the viewport, so we leave YouTube's own
+       narrow sizing untouched for those. */
+    ytd-watch-flexy:not([theater]):not([fullscreen]):not([is-vertical-video_]) {
       --ytd-watch-flexy-max-player-width: min(
         calc((100vw - 48px) * 0.8),
         calc(90vh * 16 / 9)
@@ -26,7 +29,7 @@ export default {
     /* Match the primary column to that same width and center it, so the video
        and its container agree (no size mismatch) and it sits with air on both
        sides. */
-    ytd-watch-flexy:not([theater]):not([fullscreen]) #primary.ytd-watch-flexy {
+    ytd-watch-flexy:not([theater]):not([fullscreen]):not([is-vertical-video_]) #primary.ytd-watch-flexy {
       max-width: min(calc((100vw - 48px) * 0.8), calc(90vh * 16 / 9)) !important;
       margin-inline: auto !important;
     }
