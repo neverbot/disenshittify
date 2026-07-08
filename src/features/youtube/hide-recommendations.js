@@ -1,14 +1,22 @@
 // Selectors are candidates — verify against live YouTube DOM (see build task).
 export default {
-  id: "youtube.hide-sidebar-recs",
+  id: "youtube.hide-recommendations",
   platform: "youtube",
-  title: "Hide sidebar recommendations",
-  description: "Removes the recommended-videos column on the watch page and grows the player to fill the freed space.",
+  title: "Hide recommendations",
+  description: "Removes recommended videos from the watch-page sidebar and the end-of-video overlay, and grows the player to fill the freed space.",
   defaultEnabled: true,
-  probe: "#secondary.ytd-watch-flexy",
+  probe: "#secondary.ytd-watch-flexy, .html5-endscreen",
   css: `
     /* Hide the whole secondary column (recommendations, playlists, chat). */
     #secondary.ytd-watch-flexy {
+      display: none !important;
+    }
+
+    /* Hide the end-of-playback recommendation overlay (the video wall grid
+       shown over the player when a video finishes). */
+    .html5-endscreen,
+    .ytp-endscreen-content,
+    .ytp-videowall-still {
       display: none !important;
     }
 

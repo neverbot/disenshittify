@@ -1,6 +1,6 @@
 import hideHomeFeed from "../features/youtube/hide-home-feed.js";
 import hideShorts from "../features/youtube/hide-shorts.js";
-import hideSidebarRecs from "../features/youtube/hide-sidebar-recs.js";
+import hideRecommendations from "../features/youtube/hide-recommendations.js";
 import hideComments from "../features/youtube/hide-comments.js";
 import hideAds from "../features/youtube/hide-ads.js";
 import hideExplore from "../features/youtube/hide-explore.js";
@@ -21,7 +21,7 @@ import twitterCompactSearch from "../features/twitter/compact-search.js";
 export const features = [
   hideHomeFeed,
   hideShorts,
-  hideSidebarRecs,
+  hideRecommendations,
   hideComments,
   hideAds,
   hideExplore,
