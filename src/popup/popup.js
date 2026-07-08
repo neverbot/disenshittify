@@ -115,7 +115,8 @@ export function renderPopup(root, features, config, onChange, report) {
   const platforms = [...new Set(features.map((f) => f.platform))];
   for (const platform of platforms) {
     root.appendChild(groupTitle(doc, platform));
-    for (const feature of features.filter((f) => f.platform === platform)) {
+    // alwaysOn features are applied unconditionally and have no toggle.
+    for (const feature of features.filter((f) => f.platform === platform && !f.alwaysOn)) {
       const hits = counts ? makeHits(doc, counts[feature.id]) : null;
       const control = makeCheckbox(doc, feature.id, enabled[feature.id], onChange);
       root.appendChild(makeRow(doc, feature, control, hits));

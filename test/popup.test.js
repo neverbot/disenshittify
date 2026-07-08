@@ -22,9 +22,9 @@ describe("renderPopup", () => {
     expect(boxes).toHaveLength(6);
   });
 
-  it("renders feedback toggles, default on", () => {
+  it("renders feedback toggles with per-key defaults (toast off)", () => {
     renderPopup(root, features, {}, () => {});
-    expect(root.querySelector(`input[data-id="${FEEDBACK.toast}"]`).checked).toBe(true);
+    expect(root.querySelector(`input[data-id="${FEEDBACK.toast}"]`).checked).toBe(false);
     expect(root.querySelector(`input[data-id="${FEEDBACK.badge}"]`).checked).toBe(true);
     expect(root.querySelector(`input[data-id="${FEEDBACK.popup}"]`).checked).toBe(true);
   });

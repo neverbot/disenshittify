@@ -12,6 +12,7 @@ import twitterHidePremium from "../features/twitter/hide-premium.js";
 import twitterHideSidebarWidgets from "../features/twitter/hide-sidebar-widgets.js";
 import twitterHideGrok from "../features/twitter/hide-grok.js";
 import twitterHideChat from "../features/twitter/hide-chat.js";
+import twitterHideVerified from "../features/twitter/hide-verified.js";
 
 export const features = [
   hideHomeFeed,
@@ -28,6 +29,7 @@ export const features = [
   twitterHideSidebarWidgets,
   twitterHideGrok,
   twitterHideChat,
+  twitterHideVerified,
 ];
 
 export function featuresByPlatform(platform) {

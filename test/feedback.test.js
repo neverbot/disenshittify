@@ -2,8 +2,8 @@ import { describe, it, expect } from "vitest";
 import { FEEDBACK, feedbackOn } from "../src/shared/feedback.js";
 
 describe("feedbackOn", () => {
-  it("defaults to on when the key is absent", () => {
-    expect(feedbackOn({}, FEEDBACK.toast)).toBe(true);
+  it("uses per-key defaults when absent (toast off, badge/popup on)", () => {
+    expect(feedbackOn({}, FEEDBACK.toast)).toBe(false);
     expect(feedbackOn({}, FEEDBACK.badge)).toBe(true);
     expect(feedbackOn({}, FEEDBACK.popup)).toBe(true);
   });
