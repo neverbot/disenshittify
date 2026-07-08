@@ -30,11 +30,5 @@ export default {
       max-width: min(calc((100vw - 48px) * 0.8), calc(90vh * 16 / 9)) !important;
       margin-inline: auto !important;
     }
-
-    /* Hard guarantee against a horizontal scroll area on the watch page,
-       scoped to the watch container so it never affects scrolling elsewhere. */
-    ytd-watch-flexy:not([theater]):not([fullscreen]) {
-      overflow-x: clip !important;
-    }
   `,
 };
