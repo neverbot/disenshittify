@@ -7,7 +7,6 @@ import hideExplore from "../features/youtube/hide-explore.js";
 import hideMoreFromYoutube from "../features/youtube/hide-more-from-youtube.js";
 import hideSubscriptionRecs from "../features/youtube/hide-subscription-recs.js";
 import twitterHideAds from "../features/twitter/hide-ads.js";
-import twitterForceFollowing from "../features/twitter/force-following.js";
 import twitterHidePremium from "../features/twitter/hide-premium.js";
 import twitterHideSidebarWidgets from "../features/twitter/hide-sidebar-widgets.js";
 import twitterHideGrok from "../features/twitter/hide-grok.js";
@@ -23,7 +22,6 @@ export const features = [
   hideMoreFromYoutube,
   hideSubscriptionRecs,
   twitterHideAds,
-  twitterForceFollowing,
   twitterHidePremium,
   twitterHideSidebarWidgets,
   twitterHideGrok,

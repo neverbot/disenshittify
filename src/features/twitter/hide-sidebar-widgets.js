@@ -8,11 +8,14 @@ export default {
   description: "Removes trends, Today's News, and Who to follow from the right sidebar.",
   defaultEnabled: true,
   probe:
-    '[data-testid="sidebarColumn"] div[aria-label="Timeline: Trending now"], aside[aria-label="Who to follow"]',
+    '[data-testid="sidebarColumn"] div[aria-label="Trending"], aside[aria-label="Who to follow"]',
   css: `
-    /* Trends / Today's News module and Who to follow. The search box lives in
-       its own sticky wrapper and is intentionally left untouched. */
-    [data-testid="sidebarColumn"] div[aria-label="Timeline: Trending now"],
+    /* The right-sidebar modules (Today's News, What's happening / trends) all
+       live as sibling children inside div[aria-label="Trending"], next to the
+       search box which sits in its own child. Hide every module that does NOT
+       contain the search input, so the search stays and everything else goes.
+       Who to follow is a separate aside. */
+    [data-testid="sidebarColumn"] div[aria-label="Trending"] > div > div:not(:has([data-testid="SearchBox_Search_Input"])),
     [data-testid="sidebarColumn"] aside[aria-label="Who to follow"] {
       display: none !important;
     }
