@@ -15,6 +15,7 @@ import twitterHideChat from "../features/twitter/hide-chat.js";
 import twitterHideVerified from "../features/twitter/hide-verified.js";
 import twitterSidebarLayout from "../features/twitter/sidebar-layout.js";
 import twitterHideCompose from "../features/twitter/hide-compose.js";
+import twitterFloatPostButton from "../features/twitter/float-post-button.js";
 
 export const features = [
   hideHomeFeed,
@@ -34,6 +35,7 @@ export const features = [
   twitterHideVerified,
   twitterSidebarLayout,
   twitterHideCompose,
+  twitterFloatPostButton,
 ];
 
 export function featuresByPlatform(platform) {
