@@ -43,7 +43,7 @@ export function boot(platform, { navEvents = [] } = {}) {
 
   async function apply() {
     currentConfig = await getConfig();
-    engine.sync(features, resolveEnabled(features, currentConfig));
+    engine.sync(features, resolveEnabled(features, currentConfig), () => currentConfig);
     report();
   }
 

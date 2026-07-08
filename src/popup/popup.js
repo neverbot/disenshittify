@@ -1,5 +1,5 @@
 import { features as allFeatures } from "../shared/registry.js";
-import { resolveEnabled } from "../shared/config.js";
+import { resolveEnabled, resolveOption } from "../shared/config.js";
 import { MASTER_KEY } from "../shared/constants.js";
 import { FEEDBACK, feedbackOn } from "../shared/feedback.js";
 import { getConfig, setValue } from "../shared/storage.js";
@@ -46,6 +46,35 @@ function makeRow(doc, { title, description }, control, hits) {
   return row;
 }
 
+// A feature option rendered as a small inline radio group, shown under an
+// enabled feature that declares options.
+function makeOption(doc, opt, current, onChange) {
+  const wrap = doc.createElement("div");
+  wrap.className = "feature-option";
+  const label = doc.createElement("span");
+  label.className = "feature-option__label";
+  label.textContent = opt.label;
+  wrap.appendChild(label);
+  for (const choice of opt.choices) {
+    const item = doc.createElement("label");
+    item.className = "feature-option__choice";
+    const input = doc.createElement("input");
+    input.type = "radio";
+    input.name = opt.key;
+    input.value = choice.value;
+    input.checked = current === choice.value;
+    input.addEventListener("change", () => {
+      if (input.checked) onChange(opt.key, choice.value);
+    });
+    const text = doc.createElement("span");
+    text.textContent = choice.label;
+    item.appendChild(input);
+    item.appendChild(text);
+    wrap.appendChild(item);
+  }
+  return wrap;
+}
+
 function groupTitle(doc, textContent) {
   const heading = doc.createElement("h2");
   heading.className = "popup__group-title";
@@ -90,6 +119,13 @@ export function renderPopup(root, features, config, onChange, report) {
       const hits = counts ? makeHits(doc, counts[feature.id]) : null;
       const control = makeCheckbox(doc, feature.id, enabled[feature.id], onChange);
       root.appendChild(makeRow(doc, feature, control, hits));
+      // Show a feature's options only while it is enabled.
+      if (enabled[feature.id] && feature.options) {
+        for (const opt of feature.options) {
+          const current = resolveOption(config, opt.key, opt.default);
+          root.appendChild(makeOption(doc, opt, current, onChange));
+        }
+      }
     }
   }
 

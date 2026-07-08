@@ -10,3 +10,9 @@ export function resolveEnabled(features, config) {
   }
   return map;
 }
+
+// Resolve a feature option's chosen value, falling back to its default.
+export function resolveOption(config, key, fallback) {
+  const value = config[key];
+  return value === undefined ? fallback : value;
+}
