@@ -2,8 +2,8 @@ import { describe, it, expect } from "vitest";
 import { features, featuresByPlatform } from "../src/shared/registry.js";
 
 describe("registry", () => {
-  it("contains the YouTube features", () => {
-    expect(features).toHaveLength(8);
+  it("contains all registered features", () => {
+    expect(features).toHaveLength(9);
   });
 
   it("has no duplicate ids", () => {
@@ -30,6 +30,7 @@ describe("registry", () => {
 
   it("featuresByPlatform filters correctly", () => {
     expect(featuresByPlatform("youtube")).toHaveLength(8);
+    expect(featuresByPlatform("twitter")).toHaveLength(1);
     expect(featuresByPlatform("nonexistent")).toHaveLength(0);
   });
 });

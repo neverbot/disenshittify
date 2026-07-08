@@ -6,6 +6,7 @@ import hideAds from "../features/youtube/hide-ads.js";
 import hideExplore from "../features/youtube/hide-explore.js";
 import hideMoreFromYoutube from "../features/youtube/hide-more-from-youtube.js";
 import hideSubscriptionRecs from "../features/youtube/hide-subscription-recs.js";
+import twitterHideAds from "../features/twitter/hide-ads.js";
 
 export const features = [
   hideHomeFeed,
@@ -16,6 +17,7 @@ export const features = [
   hideExplore,
   hideMoreFromYoutube,
   hideSubscriptionRecs,
+  twitterHideAds,
 ];
 
 export function featuresByPlatform(platform) {

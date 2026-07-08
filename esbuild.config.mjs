@@ -18,6 +18,7 @@ await copyStatic();
 const ctx = await esbuild.context({
   entryPoints: {
     "platforms/youtube": "src/platforms/youtube.js",
+    "platforms/twitter": "src/platforms/twitter.js",
     "popup/popup": "src/popup/popup.js",
     "background/background": "src/background/background.js",
   },
