@@ -5,7 +5,7 @@ export default {
   title: "Hide recommendations",
   description: "Removes recommended videos from the watch-page sidebar and the end-of-video overlay, and grows the player to fill the freed space.",
   defaultEnabled: true,
-  probe: "#secondary.ytd-watch-flexy, .html5-endscreen",
+  probe: "#secondary.ytd-watch-flexy, .html5-endscreen, .ytp-fullscreen-grid",
   css: `
     /* Hide the whole secondary column (recommendations, playlists, chat). */
     #secondary.ytd-watch-flexy {
@@ -20,7 +20,10 @@ export default {
     .ytp-videowall-still,
     .ytp-ce-element,
     .ytp-ce-covering-overlay,
-    .ytp-ce-element-shadow {
+    .ytp-ce-element-shadow,
+    /* Newer end-screen: a fullscreen grid of "modern videowall" suggestions. */
+    .ytp-fullscreen-grid,
+    .ytp-modern-videowall-still {
       display: none !important;
     }
 
