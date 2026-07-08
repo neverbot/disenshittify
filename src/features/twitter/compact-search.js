@@ -1,19 +1,27 @@
-// alwaysOn (no toggle): shrink the right-sidebar search box to half width and
-// align it to the right while it is idle; expand to full width on focus.
+// alwaysOn (no toggle): pin the right-sidebar search box to the top-right corner
+// of the window; keep it half-ish width while idle and widen it on focus. Fixed
+// positioning is used so it hugs the window edge (past X's own page margin)
+// instead of only the sidebar edge. Desktop only (>=1000px), where the sidebar
+// search exists.
 export default {
   id: "twitter.compact-search",
   platform: "twitter",
   alwaysOn: true,
   title: "Compact search box",
-  description: "Half-width, right-aligned search until focused.",
+  description: "Pins search to the top-right corner, widening on focus.",
   css: `
-    [data-testid="sidebarColumn"] form:has([data-testid="SearchBox_Search_Input"]) {
-      width: 50% !important;
-      margin-left: auto !important;
-      transition: width 160ms cubic-bezier(0.22, 1, 0.36, 1) !important;
-    }
-    [data-testid="sidebarColumn"] form:has([data-testid="SearchBox_Search_Input"]):focus-within {
-      width: 100% !important;
+    @media (min-width: 1000px) {
+      [data-testid="sidebarColumn"] form:has([data-testid="SearchBox_Search_Input"]) {
+        position: fixed !important;
+        top: 10px !important;
+        right: 14px !important;
+        width: 200px !important;
+        z-index: 20 !important;
+        transition: width 160ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+      }
+      [data-testid="sidebarColumn"] form:has([data-testid="SearchBox_Search_Input"]):focus-within {
+        width: 360px !important;
+      }
     }
   `,
 };
