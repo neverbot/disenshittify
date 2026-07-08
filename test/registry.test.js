@@ -3,7 +3,7 @@ import { features, featuresByPlatform } from "../src/shared/registry.js";
 
 describe("registry", () => {
   it("contains all registered features", () => {
-    expect(features).toHaveLength(15);
+    expect(features).toHaveLength(17);
   });
 
   it("has no duplicate ids", () => {
@@ -17,7 +17,9 @@ describe("registry", () => {
       expect(typeof f.platform).toBe("string");
       expect(typeof f.title).toBe("string");
       expect(typeof f.description).toBe("string");
-      expect(typeof f.defaultEnabled).toBe("boolean");
+      // alwaysOn features are applied unconditionally and carry no toggle default.
+      if (f.alwaysOn) expect(f.defaultEnabled).toBeUndefined();
+      else expect(typeof f.defaultEnabled).toBe("boolean");
       expect(f.css || typeof f.apply === "function").toBeTruthy();
     }
   });
@@ -30,7 +32,7 @@ describe("registry", () => {
 
   it("featuresByPlatform filters correctly", () => {
     expect(featuresByPlatform("youtube")).toHaveLength(8);
-    expect(featuresByPlatform("twitter")).toHaveLength(7);
+    expect(featuresByPlatform("twitter")).toHaveLength(9);
     expect(featuresByPlatform("nonexistent")).toHaveLength(0);
   });
 });
