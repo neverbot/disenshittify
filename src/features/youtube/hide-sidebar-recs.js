@@ -12,17 +12,25 @@ export default {
       display: none !important;
     }
 
-    /* Grow the player into the freed width, but clamp against the viewport so
-       the width can never overshoot. Scoped away from theater/fullscreen. */
-    ytd-watch-flexy[flexy][is-two-columns_]:not([theater]):not([fullscreen]) {
-      --ytd-watch-flexy-max-player-width: min(
-        calc(100vw - 40px),
+    /* Cap the watch column at ~80% of the available width and center it, so
+       the player has breathing room instead of filling edge to edge. Clamped
+       against the aspect-derived max so it never overshoots. */
+    ytd-watch-flexy[flexy][is-two-columns_]:not([theater]):not([fullscreen]) #primary.ytd-watch-flexy {
+      max-width: min(
+        calc((100vw - 48px) * 0.8),
         calc(
           var(--ytd-watch-flexy-chat-max-height) *
           var(--ytd-watch-flexy-width-ratio) /
           var(--ytd-watch-flexy-height-ratio)
         )
       ) !important;
+      margin-inline: auto !important;
+      flex-grow: 0 !important;
+    }
+
+    /* Let the player fill the (now capped) primary column. */
+    ytd-watch-flexy[flexy][is-two-columns_]:not([theater]):not([fullscreen]) {
+      --ytd-watch-flexy-max-player-width: 100vw !important;
     }
 
     /* Hard guarantee: never allow a horizontal scroll area to exist on the
