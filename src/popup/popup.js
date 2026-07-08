@@ -54,11 +54,12 @@ function groupTitle(doc, textContent) {
 }
 
 function makeHits(doc, count) {
-  if (count === undefined) return null;
+  // Only show the pill when something was actually hidden; zeros add no value.
+  if (!count) return null;
   const el = doc.createElement("span");
-  el.className = "feature__hits " + (count > 0 ? "is-hit" : "is-idle");
+  el.className = "feature__hits is-hit";
   el.textContent = String(count);
-  el.title = count > 0 ? `${count} hidden on this tab` : "nothing matched on this tab";
+  el.title = `${count} hidden on this tab`;
   return el;
 }
 

@@ -29,14 +29,13 @@ describe("renderPopup", () => {
     expect(root.querySelector(`input[data-id="${FEEDBACK.popup}"]`).checked).toBe(true);
   });
 
-  it("shows per-feature hit counts when a report is passed", () => {
+  it("shows a hit pill only for non-zero counts", () => {
     const report = { counts: { "youtube.a": 4, "youtube.b": 0 } };
     renderPopup(root, features, {}, () => {}, report);
     const hits = root.querySelectorAll(".feature__hits");
-    expect(hits).toHaveLength(2);
+    expect(hits).toHaveLength(1);
     expect(hits[0].textContent).toBe("4");
     expect(hits[0].classList.contains("is-hit")).toBe(true);
-    expect(hits[1].classList.contains("is-idle")).toBe(true);
   });
 
   it("reflects resolved enabled state (default + master on)", () => {
