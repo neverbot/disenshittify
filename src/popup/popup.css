@@ -39,7 +39,7 @@
 
 body {
   margin: 0;
-  width: 280px;
+  width: 300px;
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
   color: var(--text);
   background: var(--surface);
@@ -50,15 +50,27 @@ body {
   padding: 14px 16px 16px;
 }
 
-/* Title: small brand mark, the calmest thing here. */
+/* Header: logo + name on the left, master switch on the right. */
+.popup__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
 .popup__title {
-  margin: 0 0 12px;
+  margin: 0;
   font-size: 15px;
   font-weight: 600;
   letter-spacing: -0.01em;
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.popup__header .switch {
+  margin-left: auto;
 }
 
 .popup__title::before {
@@ -70,22 +82,6 @@ body {
   /* The actual extension logo (blue tile), so it reads as a brand mark and
      not a lone X that looks like a close button. */
   background: url("../icons/icon.svg") center / contain no-repeat;
-}
-
-/* Master switch: its own emphasized block, set apart from the feature list. */
-.popup__master {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 11px 12px;
-  margin-bottom: 14px;
-  background: var(--surface-sunken);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  font-weight: 550;
-  font-size: 13px;
-  cursor: pointer;
 }
 
 .popup__group-title {

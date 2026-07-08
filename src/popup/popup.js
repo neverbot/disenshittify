@@ -68,19 +68,18 @@ export function renderPopup(root, features, config, onChange, report) {
   root.textContent = "";
   const counts = (report && report.counts) || null;
 
+  // Header: logo + name, with the master switch inline on the right.
+  const header = doc.createElement("div");
+  header.className = "popup__header";
   const title = doc.createElement("h1");
   title.className = "popup__title";
   title.textContent = "disenshittify";
-  root.appendChild(title);
-
-  // Master switch
-  const master = doc.createElement("label");
-  master.className = "popup__master";
-  const masterText = doc.createElement("span");
-  masterText.textContent = "Enabled";
-  master.appendChild(masterText);
-  master.appendChild(makeCheckbox(doc, MASTER_KEY, config[MASTER_KEY] !== false, onChange));
-  root.appendChild(master);
+  header.appendChild(title);
+  const master = makeCheckbox(doc, MASTER_KEY, config[MASTER_KEY] !== false, onChange);
+  master.title = "Enable / disable everything";
+  master.setAttribute("aria-label", "Enable disenshittify");
+  header.appendChild(master);
+  root.appendChild(header);
 
   // Feature toggles grouped by platform, with per-tab hit counts.
   const enabled = resolveEnabled(features, config);
