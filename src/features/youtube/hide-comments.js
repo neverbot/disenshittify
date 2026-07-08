@@ -5,6 +5,7 @@ export default {
   title: "Hide comments",
   description: "Removes the comments section on the watch page.",
   defaultEnabled: false,
+  probe: "ytd-comments#comments",
   css: `
     ytd-comments#comments,
     #comments.ytd-watch-flexy {

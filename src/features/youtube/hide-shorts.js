@@ -5,6 +5,7 @@ export default {
   title: "Hide Shorts",
   description: "Removes Shorts shelves, the sidebar entry, and search results.",
   defaultEnabled: true,
+  probe: 'ytd-reel-shelf-renderer, ytd-guide-entry-renderer:has(a[title="Shorts"]), a[title="Shorts"]',
   css: `
     ytd-reel-shelf-renderer,
     ytd-rich-shelf-renderer[is-shorts],

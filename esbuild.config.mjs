@@ -19,6 +19,7 @@ const ctx = await esbuild.context({
   entryPoints: {
     "platforms/youtube": "src/platforms/youtube.js",
     "popup/popup": "src/popup/popup.js",
+    "background/background": "src/background/background.js",
   },
   bundle: true,
   format: "iife",

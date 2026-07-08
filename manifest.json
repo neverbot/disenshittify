@@ -10,6 +10,9 @@
     "default_icon": "icons/icon.svg"
   },
   "permissions": ["storage"],
+  "background": {
+    "scripts": ["background/background.js"]
+  },
   "content_scripts": [
     {
       "matches": ["https://www.youtube.com/*", "https://m.youtube.com/*"],

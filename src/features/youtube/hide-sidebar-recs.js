@@ -5,6 +5,7 @@ export default {
   title: "Hide sidebar recommendations",
   description: "Removes the recommended-videos column on the watch page and grows the player to fill the freed space.",
   defaultEnabled: true,
+  probe: "#secondary.ytd-watch-flexy",
   css: `
     /* Hide the whole secondary column (recommendations, playlists, chat). */
     #secondary.ytd-watch-flexy {
