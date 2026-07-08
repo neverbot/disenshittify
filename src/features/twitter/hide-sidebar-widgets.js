@@ -8,11 +8,12 @@ export default {
   description: "Removes trends, Today's News, and Who to follow from the right sidebar.",
   defaultEnabled: true,
   probe:
-    '[data-testid="sidebarColumn"] div[aria-label="Trending"], aside[aria-label="Who to follow"]',
+    '[data-testid="sidebarColumn"] div[aria-label="Timeline: Trending now"], aside[aria-label="Who to follow"]',
   css: `
-    [data-testid="sidebarColumn"] div[aria-label="Trending"],
+    /* Trends / Today's News module and Who to follow. The search box lives in
+       its own sticky wrapper and is intentionally left untouched. */
     [data-testid="sidebarColumn"] div[aria-label="Timeline: Trending now"],
-    aside[aria-label="Who to follow"] {
+    [data-testid="sidebarColumn"] aside[aria-label="Who to follow"] {
       display: none !important;
     }
   `,
