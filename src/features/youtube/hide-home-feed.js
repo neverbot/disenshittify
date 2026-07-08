@@ -4,7 +4,7 @@ export default {
   platform: "youtube",
   title: "Hide home feed",
   description: "Removes the recommendation wall on the YouTube home page.",
-  defaultEnabled: true,
+  defaultEnabled: false,
   probe: 'ytd-browse[page-subtype="home"] ytd-rich-grid-renderer',
   css: `
     ytd-browse[page-subtype="home"] ytd-rich-grid-renderer,
