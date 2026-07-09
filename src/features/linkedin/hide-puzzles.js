@@ -10,7 +10,12 @@ export default {
   title: "Hide Today's puzzles",
   description: "Removes the Today's puzzles games box.",
   defaultEnabled: true,
-  probe: 'aside div:has(a[href*="/games/"]):not(:has(a[href*="/company/"])):not(:has(a[href*="/in/"]))',
+  // Count once (the CSS selector's :has matches every nesting level, which would
+  // inflate the hit count): match only the card itself, i.e. the direct child —
+  // holding /games/ but not the follow links — of the wrapper that also holds the
+  // sibling "Add to your feed" card (identified by its discover-hub link).
+  probe:
+    'aside div:has(a[href*="/mynetwork/discover-hub/"]) > div:has(a[href*="/games/"]):not(:has(a[href*="/company/"])):not(:has(a[href*="/in/"]))',
   css: `
     aside div:has(a[href*="/games/"]):not(:has(a[href*="/company/"])):not(:has(a[href*="/in/"])) {
       display: none !important;

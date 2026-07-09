@@ -10,7 +10,10 @@ export default {
   title: "Hide Add to your feed",
   description: "Removes the Add to your feed follow suggestions.",
   defaultEnabled: true,
-  probe: 'aside div:has(a[href*="/mynetwork/discover-hub/"]):not(:has(a[href*="/games/"]))',
+  // Count once (the CSS selector's :has matches every nesting level, which would
+  // inflate the hit count): the "View all recommendations" link is unique to this
+  // card, so it stands in for the single card removed.
+  probe: 'aside a[href*="/mynetwork/discover-hub/"]',
   css: `
     aside div:has(a[href*="/mynetwork/discover-hub/"]):not(:has(a[href*="/games/"])) {
       display: none !important;
