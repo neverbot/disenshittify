@@ -21,5 +21,15 @@ export default {
     header[role="banner"] > div > div > div > div:last-child {
       margin-top: 0 !important;
     }
+
+    /* On wide screens X widens the banner and right-aligns the nav against the
+       main column. Float it to the LEFT edge of the banner instead, so it hugs
+       the far left of the window (analogous to the search box hugging the right).
+       Desktop only; the narrow layout already sits flush left. */
+    @media (min-width: 1000px) {
+      header[role="banner"] {
+        align-items: flex-start !important;
+      }
+    }
   `,
 };
