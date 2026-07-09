@@ -49,6 +49,18 @@ describe("renderPopup", () => {
     expect(root.querySelector('input[data-id="youtube.a"]')).toBeNull();
   });
 
+  it("opens on the initialTab platform when supplied", () => {
+    renderPopup(root, features, {}, () => {}, null, "twitter");
+    expect(root.querySelector('input[data-id="twitter.a"]')).not.toBeNull();
+    expect(root.querySelector('input[data-id="youtube.a"]')).toBeNull();
+    expect(root.querySelector('.tab[data-tab="twitter"]').getAttribute("aria-selected")).toBe("true");
+  });
+
+  it("falls back to the first platform when initialTab is unsupported", () => {
+    renderPopup(root, features, {}, () => {}, null, "nonexistent");
+    expect(root.querySelector('input[data-id="youtube.a"]')).not.toBeNull();
+  });
+
   it("the gear tab shows the feedback toggles with per-key defaults (toast off)", () => {
     renderPopup(root, features, {}, () => {});
     gear(root).click();

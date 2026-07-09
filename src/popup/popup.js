@@ -182,11 +182,13 @@ function settingsPanel(doc, panel, config, onChange) {
   panel.appendChild(version);
 }
 
-export function renderPopup(root, features, config, onChange, report) {
+export function renderPopup(root, features, config, onChange, report, initialTab) {
   const doc = root.ownerDocument;
   const counts = (report && report.counts) || null;
   const platforms = [...new Set(features.map((f) => f.platform))];
-  let active = platforms[0] || SETTINGS_TAB;
+  // Open on the current page's platform tab when it is one we support.
+  let active =
+    initialTab && platforms.includes(initialTab) ? initialTab : platforms[0] || SETTINGS_TAB;
 
   function draw() {
     root.textContent = "";
@@ -234,20 +236,37 @@ function sendMessageToTab(tabId, msg) {
   });
 }
 
-// Ask the active tab's content script directly for live hit counts. This is
-// robust against the MV3 background event page dropping its in-memory report.
-async function getActiveReport() {
+// Map a page URL to the platform whose tab the popup should open on.
+function platformFromUrl(url) {
+  try {
+    const host = new URL(url).hostname;
+    if (/(^|\.)youtube\.com$/.test(host)) return "youtube";
+    if (/(^|\.)(x|twitter)\.com$/.test(host)) return "twitter";
+    if (/(^|\.)linkedin\.com$/.test(host)) return "linkedin";
+  } catch {
+    /* not a normal URL */
+  }
+  return null;
+}
+
+// Ask the active tab's content script directly for live hit counts (robust
+// against the MV3 background event page dropping its in-memory report), and
+// return the active tab so the popup can open on its platform.
+async function getActiveTab() {
   const tabs = await tabsQuery({ active: true, currentWindow: true });
-  const tabId = tabs[0] && tabs[0].id;
-  if (tabId == null) return null;
-  return sendMessageToTab(tabId, { type: "dsh:getCounts" });
+  return tabs[0] || null;
 }
 
 async function bootstrap() {
   const root = document.getElementById("app");
   if (!root) return;
-  const [config, report] = await Promise.all([getConfig(), getActiveReport()]);
-  renderPopup(root, allFeatures, config, (id, value) => setValue(id, value), report);
+  const tab = await getActiveTab();
+  const [config, report] = await Promise.all([
+    getConfig(),
+    tab && tab.id != null ? sendMessageToTab(tab.id, { type: "dsh:getCounts" }) : null,
+  ]);
+  const initialTab = tab && tab.url ? platformFromUrl(tab.url) : null;
+  renderPopup(root, allFeatures, config, (id, value) => setValue(id, value), report, initialTab);
 }
 
 if (typeof document !== "undefined" && document.getElementById("app")) {
