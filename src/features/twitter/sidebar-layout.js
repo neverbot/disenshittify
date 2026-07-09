@@ -22,13 +22,31 @@ export default {
       margin-top: 0 !important;
     }
 
-    /* On wide screens X widens the banner and right-aligns the nav against the
-       main column. Float it to the LEFT edge of the banner instead, so it hugs
-       the far left of the window (analogous to the search box hugging the right).
-       Desktop only; the narrow layout already sits flush left. */
+    /* Desktop layout: pin the left nav out of flow at the window's left edge so
+       it no longer offsets the main region, collapse the (now widget-less) right
+       column so it doesn't pull the centering, and center the tweet column in
+       the window. Mobile collapses the sidebar and is left untouched. */
     @media (min-width: 1000px) {
       header[role="banner"] {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
         align-items: flex-start !important;
+      }
+      /* Collapse the (widget-less) right column to nothing, including the gutter
+         between columns, so it adds no width; its search box is position:fixed
+         and stays. Then center the tweet column in the full-width main. */
+      [data-testid="sidebarColumn"] {
+        width: 0 !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+      }
+      main[role="main"] {
+        align-items: center !important;
+      }
+      main[role="main"] [data-testid="primaryColumn"] {
+        margin-left: auto !important;
+        margin-right: auto !important;
       }
     }
   `,
