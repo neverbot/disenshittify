@@ -8,7 +8,7 @@ export default {
   id: "linkedin.hide-feed-recs",
   platform: "linkedin",
   title: "Hide Add to your feed",
-  description: "Removes the Add to your feed follow suggestions from the right sidebar.",
+  description: "Removes the Add to your feed follow suggestions.",
   defaultEnabled: true,
   probe: 'aside div:has(a[href*="/mynetwork/discover-hub/"]):not(:has(a[href*="/games/"]))',
   css: `

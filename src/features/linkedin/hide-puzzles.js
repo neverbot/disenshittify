@@ -8,7 +8,7 @@ export default {
   id: "linkedin.hide-puzzles",
   platform: "linkedin",
   title: "Hide Today's puzzles",
-  description: "Removes the Today's puzzles games box from the right sidebar.",
+  description: "Removes the Today's puzzles games box.",
   defaultEnabled: true,
   probe: 'aside div:has(a[href*="/games/"]):not(:has(a[href*="/company/"])):not(:has(a[href*="/in/"]))',
   css: `
