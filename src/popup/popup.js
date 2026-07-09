@@ -3,6 +3,9 @@ import { resolveEnabled, resolveOption } from "../shared/config.js";
 import { MASTER_KEY } from "../shared/constants.js";
 import { FEEDBACK, feedbackOn } from "../shared/feedback.js";
 import { getConfig, setValue } from "../shared/storage.js";
+import { makeIcon, PLATFORM_LABELS } from "./icons.js";
+
+const SETTINGS_TAB = "settings";
 
 const api =
   typeof browser !== "undefined"
@@ -92,50 +95,115 @@ function makeHits(doc, count) {
   return el;
 }
 
-export function renderPopup(root, features, config, onChange, report) {
-  const doc = root.ownerDocument;
-  root.textContent = "";
-  const counts = (report && report.counts) || null;
-
-  // Header: logo + name, with the master switch inline on the right.
-  const header = doc.createElement("div");
-  header.className = "popup__header";
+function header(doc, config, onChange) {
+  const el = doc.createElement("div");
+  el.className = "popup__header";
   const title = doc.createElement("h1");
   title.className = "popup__title";
   title.textContent = "disenshittify";
-  header.appendChild(title);
+  el.appendChild(title);
   const master = makeCheckbox(doc, MASTER_KEY, config[MASTER_KEY] !== false, onChange);
   master.title = "Enable / disable everything";
   master.setAttribute("aria-label", "Enable disenshittify");
-  header.appendChild(master);
-  root.appendChild(header);
+  el.appendChild(master);
+  return el;
+}
 
-  // Feature toggles grouped by platform, with per-tab hit counts.
-  const enabled = resolveEnabled(features, config);
-  const platforms = [...new Set(features.map((f) => f.platform))];
+function tabButton(doc, tab, label, isActive, onTab) {
+  const btn = doc.createElement("button");
+  btn.type = "button";
+  btn.className = "tab" + (isActive ? " is-active" : "");
+  btn.setAttribute("role", "tab");
+  btn.setAttribute("data-tab", tab);
+  btn.setAttribute("aria-selected", isActive ? "true" : "false");
+  btn.setAttribute("aria-label", label);
+  btn.title = label;
+  btn.appendChild(makeIcon(doc, tab));
+  btn.addEventListener("click", () => onTab(tab));
+  return btn;
+}
+
+function tabBar(doc, platforms, active, onTab) {
+  const bar = doc.createElement("div");
+  bar.className = "tabbar";
+  bar.setAttribute("role", "tablist");
   for (const platform of platforms) {
-    root.appendChild(groupTitle(doc, platform));
-    // alwaysOn features are applied unconditionally and have no toggle.
-    for (const feature of features.filter((f) => f.platform === platform && !f.alwaysOn)) {
-      const hits = counts ? makeHits(doc, counts[feature.id]) : null;
-      const control = makeCheckbox(doc, feature.id, enabled[feature.id], onChange);
-      root.appendChild(makeRow(doc, feature, control, hits));
-      // Show a feature's options only while it is enabled.
-      if (enabled[feature.id] && feature.options) {
-        for (const opt of feature.options) {
-          const current = resolveOption(config, opt.key, opt.default);
-          root.appendChild(makeOption(doc, opt, current, onChange));
-        }
+    bar.appendChild(
+      tabButton(doc, platform, PLATFORM_LABELS[platform] || platform, active === platform, onTab)
+    );
+  }
+  // The gear (general settings) is pushed to the far right.
+  const gear = tabButton(doc, SETTINGS_TAB, "General settings", active === SETTINGS_TAB, onTab);
+  gear.classList.add("tab--gear");
+  bar.appendChild(gear);
+  return bar;
+}
+
+function platformPanel(doc, panel, features, config, counts, onChange) {
+  const enabled = resolveEnabled(features, config);
+  // alwaysOn features are applied unconditionally and have no toggle.
+  const toggleable = features.filter((f) => !f.alwaysOn);
+  if (!toggleable.length) {
+    const empty = doc.createElement("p");
+    empty.className = "panel__empty";
+    empty.textContent = "No features yet.";
+    panel.appendChild(empty);
+    return;
+  }
+  for (const feature of toggleable) {
+    const hits = counts ? makeHits(doc, counts[feature.id]) : null;
+    const control = makeCheckbox(doc, feature.id, enabled[feature.id], onChange);
+    panel.appendChild(makeRow(doc, feature, control, hits));
+    // Show a feature's options only while it is enabled.
+    if (enabled[feature.id] && feature.options) {
+      for (const opt of feature.options) {
+        const current = resolveOption(config, opt.key, opt.default);
+        panel.appendChild(makeOption(doc, opt, current, onChange));
       }
     }
   }
+}
 
-  // Feedback channels
-  root.appendChild(groupTitle(doc, "Feedback"));
+function settingsPanel(doc, panel, config, onChange) {
+  panel.appendChild(groupTitle(doc, "Feedback"));
   for (const item of FEEDBACK_ROWS) {
     const control = makeCheckbox(doc, item.key, feedbackOn(config, item.key), onChange);
-    root.appendChild(makeRow(doc, item, control, null));
+    panel.appendChild(makeRow(doc, item, control, null));
   }
+  const version = doc.createElement("p");
+  version.className = "panel__version";
+  version.textContent = "disenshittify";
+  panel.appendChild(version);
+}
+
+export function renderPopup(root, features, config, onChange, report) {
+  const doc = root.ownerDocument;
+  const counts = (report && report.counts) || null;
+  const platforms = [...new Set(features.map((f) => f.platform))];
+  let active = platforms[0] || SETTINGS_TAB;
+
+  function draw() {
+    root.textContent = "";
+    root.appendChild(header(doc, config, onChange));
+    root.appendChild(
+      tabBar(doc, platforms, active, (tab) => {
+        if (tab === active) return;
+        active = tab;
+        draw();
+      })
+    );
+    const panel = doc.createElement("div");
+    panel.className = "panel";
+    panel.setAttribute("role", "tabpanel");
+    if (active === SETTINGS_TAB) {
+      settingsPanel(doc, panel, config, onChange);
+    } else {
+      platformPanel(doc, panel, features.filter((f) => f.platform === active), config, counts, onChange);
+    }
+    root.appendChild(panel);
+  }
+
+  draw();
 }
 
 function tabsQuery(query) {

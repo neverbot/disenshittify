@@ -55,8 +55,83 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding-bottom: 12px;
+  padding-bottom: 10px;
+}
+
+/* Tab bar: one icon per platform, plus the gear pushed to the right. The active
+   tab is marked by an accent underline sitting on the bar's own bottom border. */
+.tabbar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
   border-bottom: 1px solid var(--border);
+}
+
+.tab {
+  appearance: none;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  padding: 7px 9px 8px;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: color 140ms var(--ease), background-color 140ms var(--ease);
+}
+
+.tab:hover {
+  color: var(--text);
+  background: var(--surface-sunken);
+}
+
+.tab.is-active {
+  color: var(--accent);
+}
+
+.tab.is-active::after {
+  content: "";
+  position: absolute;
+  left: 9px;
+  right: 9px;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+  background: var(--accent);
+}
+
+.tab--gear {
+  margin-left: auto;
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 1px;
+}
+
+/* Panel: the active tab's content. */
+.panel {
+  padding-top: 4px;
+}
+
+.panel > .popup__group-title:first-child {
+  margin-top: 10px;
+}
+
+.panel__empty {
+  color: var(--text-muted);
+  font-size: 12px;
+  padding: 16px 2px;
+}
+
+.panel__version {
+  margin: 18px 0 0;
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  opacity: 0.7;
 }
 
 .popup__title {
