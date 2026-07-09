@@ -20,6 +20,8 @@ import twitterCompactSearch from "../features/twitter/compact-search.js";
 import linkedinHidePageUpsell from "../features/linkedin/hide-page-upsell.js";
 import linkedinHidePuzzles from "../features/linkedin/hide-puzzles.js";
 import linkedinHideFeedRecs from "../features/linkedin/hide-feed-recs.js";
+import linkedinHideActivityPosts from "../features/linkedin/hide-activity-posts.js";
+import linkedinHideReactionPosts from "../features/linkedin/hide-reaction-posts.js";
 
 export const features = [
   hideHomeFeed,
@@ -44,6 +46,8 @@ export const features = [
   linkedinHidePageUpsell,
   linkedinHidePuzzles,
   linkedinHideFeedRecs,
+  linkedinHideActivityPosts,
+  linkedinHideReactionPosts,
 ];
 
 export function featuresByPlatform(platform) {
