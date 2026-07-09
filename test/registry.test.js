@@ -3,7 +3,7 @@ import { features, featuresByPlatform } from "../src/shared/registry.js";
 
 describe("registry", () => {
   it("contains all registered features", () => {
-    expect(features).toHaveLength(20);
+    expect(features).toHaveLength(21);
   });
 
   it("has no duplicate ids", () => {
@@ -33,7 +33,7 @@ describe("registry", () => {
   it("featuresByPlatform filters correctly", () => {
     expect(featuresByPlatform("youtube")).toHaveLength(8);
     expect(featuresByPlatform("twitter")).toHaveLength(11);
-    expect(featuresByPlatform("linkedin")).toHaveLength(1);
+    expect(featuresByPlatform("linkedin")).toHaveLength(2);
     expect(featuresByPlatform("nonexistent")).toHaveLength(0);
   });
 });
