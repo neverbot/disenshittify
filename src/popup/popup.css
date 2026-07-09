@@ -134,15 +134,15 @@ body {
 
 .panel__repo {
   color: var(--text-muted);
-  text-decoration: none;
   opacity: 0.7;
-  transition: color 140ms var(--ease), opacity 140ms var(--ease);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity 140ms var(--ease);
 }
 
 .panel__repo:hover {
-  color: var(--accent);
   opacity: 1;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .panel__repo:focus-visible {
