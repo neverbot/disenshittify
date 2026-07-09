@@ -130,8 +130,25 @@ body {
   margin: 18px 0 0;
   text-align: center;
   font-size: 11px;
+}
+
+.panel__repo {
   color: var(--text-muted);
+  text-decoration: none;
   opacity: 0.7;
+  transition: color 140ms var(--ease), opacity 140ms var(--ease);
+}
+
+.panel__repo:hover {
+  color: var(--accent);
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.panel__repo:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 2px;
+  border-radius: 3px;
 }
 
 .popup__title {

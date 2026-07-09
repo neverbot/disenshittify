@@ -172,7 +172,13 @@ function settingsPanel(doc, panel, config, onChange) {
   }
   const version = doc.createElement("p");
   version.className = "panel__version";
-  version.textContent = "disenshittify";
+  const link = doc.createElement("a");
+  link.className = "panel__repo";
+  link.href = "https://github.com/neverbot/disenshittify";
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.textContent = "disenshittify";
+  version.appendChild(link);
   panel.appendChild(version);
 }
 
