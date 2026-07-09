@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "disenshittify",
   "version": "0.1.0",
-  "description": "Removes enshittification features from platforms. YouTube and X/Twitter.",
+  "description": "Removes enshittification features from platforms. YouTube, X/Twitter, and LinkedIn.",
   "icons": { "48": "icons/icon.svg", "96": "icons/icon.svg" },
   "action": {
     "default_popup": "popup/popup.html",
@@ -23,6 +23,12 @@
     {
       "matches": ["https://twitter.com/*", "https://x.com/*"],
       "js": ["platforms/twitter.js"],
+      "run_at": "document_start",
+      "all_frames": false
+    },
+    {
+      "matches": ["https://www.linkedin.com/*"],
+      "js": ["platforms/linkedin.js"],
       "run_at": "document_start",
       "all_frames": false
     }

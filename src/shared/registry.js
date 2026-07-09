@@ -17,6 +17,7 @@ import twitterSidebarLayout from "../features/twitter/sidebar-layout.js";
 import twitterHideCompose from "../features/twitter/hide-compose.js";
 import twitterFloatPostButton from "../features/twitter/float-post-button.js";
 import twitterCompactSearch from "../features/twitter/compact-search.js";
+import linkedinHidePageUpsell from "../features/linkedin/hide-page-upsell.js";
 
 export const features = [
   hideHomeFeed,
@@ -38,6 +39,7 @@ export const features = [
   twitterHideCompose,
   twitterFloatPostButton,
   twitterCompactSearch,
+  linkedinHidePageUpsell,
 ];
 
 export function featuresByPlatform(platform) {

@@ -19,6 +19,7 @@ const ctx = await esbuild.context({
   entryPoints: {
     "platforms/youtube": "src/platforms/youtube.js",
     "platforms/twitter": "src/platforms/twitter.js",
+    "platforms/linkedin": "src/platforms/linkedin.js",
     "popup/popup": "src/popup/popup.js",
     "background/background": "src/background/background.js",
   },
