@@ -14,10 +14,13 @@ export default {
   title: "Hide promoted posts",
   description: "Removes Promoted (advertised) posts from the feed.",
   defaultEnabled: true,
+  // One combined :not(:has(a, b)) instead of two, so the browser scans a
+  // listitem's svg subtree once per style recalc, not twice (matters on the
+  // churn-heavy feed where every added post re-evaluates these :has rules).
   probe:
-    '[role="listitem"]:has(svg[id="overflow-web-ios-small"]):not(:has(svg[id*="globe"])):not(:has(svg[id*="people"]))',
+    '[role="listitem"]:has(svg[id="overflow-web-ios-small"]):not(:has(svg[id*="globe"], svg[id*="people"]))',
   css: `
-    [role="listitem"]:has(svg[id="overflow-web-ios-small"]):not(:has(svg[id*="globe"])):not(:has(svg[id*="people"])) {
+    [role="listitem"]:has(svg[id="overflow-web-ios-small"]):not(:has(svg[id*="globe"], svg[id*="people"])) {
       display: none !important;
     }
   `,

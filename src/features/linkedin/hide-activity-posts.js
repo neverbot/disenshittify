@@ -15,9 +15,9 @@ export default {
   description: "Removes feed posts surfaced from your own activity.",
   defaultEnabled: true,
   probe:
-    '[role="listitem"]:has(h2 + div + hr):not(:has(h2 + div a[href*="/in/"])):not(:has(h2 + div a[href*="/company/"]))',
+    '[role="listitem"]:has(h2 + div + hr):not(:has(h2 + div a[href*="/in/"], h2 + div a[href*="/company/"]))',
   css: `
-    [role="listitem"]:has(h2 + div + hr):not(:has(h2 + div a[href*="/in/"])):not(:has(h2 + div a[href*="/company/"])) {
+    [role="listitem"]:has(h2 + div + hr):not(:has(h2 + div a[href*="/in/"], h2 + div a[href*="/company/"])) {
       display: none !important;
     }
   `,

@@ -13,16 +13,14 @@ export default {
   css: `
     /* Advertise on LinkedIn (Campaign Manager) row. */
     a[href*="/campaignmanager"],
-    /* Try Premium Page row (wraps the premium upsell-slot anchor). */
-    div:has(> a[href*="PREMIUM_PAGE_FEED_PAGE_CARD"]),
-    /* "Grow your business faster" label: the 2nd row after the Visitors link
-       (Visitors, hr, label). Anchored on the stable Visitors href by position,
-       since the label itself carries only localized text. */
+    /* The upsell block sits right after the Visitors analytics link, in order:
+       Visitors, [hr], [label], [Try Premium row], Advertise, [hr], analytics.
+       Reach the leading hr, the "Grow your business faster" label and the Try
+       Premium row purely by position from the stable Visitors href — no :has(),
+       whose broad div:has(> a...) subject the browser would re-check on churn. */
+    a[href*="/admin/analytics/visitors"] + div,
     a[href*="/admin/analytics/visitors"] + div + div,
-    /* Leading separator: the hr row right after the Visitors analytics link.
-       (Firefox rejects nested :has(), so anchor the hr on the stable Visitors
-       href rather than on the upsell block that follows it.) */
-    a[href*="/admin/analytics/visitors"] + div:has(> hr) {
+    a[href*="/admin/analytics/visitors"] + div + div + div {
       display: none !important;
     }
   `,

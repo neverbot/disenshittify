@@ -15,6 +15,12 @@ const api = typeof browser !== "undefined" ? browser : chrome;
 // observer so platforms without such an event (X/Twitter) still reset the
 // once-per-navigation toast.
 export function boot(platform, { navEvents = [] } = {}) {
+  // Idempotency guard: never let two content-script instances run in the same
+  // document (each would add its own MutationObserver, <style> tags and report
+  // loop — doubling our footprint on a heavy SPA).
+  if (window.__disenshittifyBooted) return;
+  window.__disenshittifyBooted = true;
+
   const engine = createEngine({ doc: document });
   const features = featuresByPlatform(platform);
 
@@ -47,6 +53,9 @@ export function boot(platform, { navEvents = [] } = {}) {
     report();
   }
 
+  // Re-report is cosmetic (badge/toast counts), so debounce generously: on a
+  // churn-heavy SPA the observer fires constantly, and we only need to settle
+  // once activity pauses. A longer window means fewer countHits passes.
   let debounce;
   const observer = new MutationObserver(() => {
     clearTimeout(debounce);
@@ -56,7 +65,7 @@ export function boot(platform, { navEvents = [] } = {}) {
         toastShownForNav = false;
       }
       report();
-    }, 500);
+    }, 800);
   });
 
   onConfigChanged(() => apply());
