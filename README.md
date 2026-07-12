@@ -26,7 +26,10 @@ default the timeline to Following; plus always-on desktop layout tweaks
 
 ### LinkedIn
 
-Hide the "Grow your business faster" Page upsell (Try Premium + Advertise).
+Hide the "Grow your business faster" Page upsell (Try Premium + Advertise), the
+right-sidebar "Today's puzzles" and "Add to your feed" boxes, and feed posts
+injected from your own activity, from someone's reaction/follow/comment, or as
+Promoted ads.
 
 ## Architecture (in brief)
 
