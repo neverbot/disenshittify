@@ -3,11 +3,11 @@
 // "Promoted by X" label is localized, so neither is usable. The reliable
 // text-free signal is the actor's visibility line: a real post always shows a
 // visibility icon (public = globe, connections = people), an ad shows "Promoted"
-// with no icon. So match a post that has body text (`data-testid=
-// "expandable-text-box"`, a stable testid — excludes the icon-less "Recommended
-// for you" carousel) but carries NO visibility icon.
-// Trade-off: rare image-only ads with no text body are missed (acceptable — the
-// alternative risks hiding real posts). See maintaining-linkedin-features.md.
+// with no icon. So match a real feed post — anchored on the per-post "..." control
+// menu (`svg#overflow-web-ios-small`), which every post/ad has but the icon-less
+// "Recommended for you" carousel lacks — that carries NO visibility icon.
+// (An earlier version keyed on `data-testid="expandable-text-box"`, but ads with
+// no expandable body text lack it and slipped through; the control menu does not.)
 export default {
   id: "linkedin.hide-promoted",
   platform: "linkedin",
@@ -15,9 +15,9 @@ export default {
   description: "Removes Promoted (advertised) posts from the feed.",
   defaultEnabled: true,
   probe:
-    '[role="listitem"]:has([data-testid="expandable-text-box"]):not(:has(svg[id*="globe"])):not(:has(svg[id*="people"]))',
+    '[role="listitem"]:has(svg[id="overflow-web-ios-small"]):not(:has(svg[id*="globe"])):not(:has(svg[id*="people"]))',
   css: `
-    [role="listitem"]:has([data-testid="expandable-text-box"]):not(:has(svg[id*="globe"])):not(:has(svg[id*="people"])) {
+    [role="listitem"]:has(svg[id="overflow-web-ios-small"]):not(:has(svg[id*="globe"])):not(:has(svg[id*="people"])) {
       display: none !important;
     }
   `,
