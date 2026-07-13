@@ -30,7 +30,8 @@ Hide the "Grow your business faster" Page upsell (Try Premium + Advertise), the
 right-sidebar "Today's puzzles" and "Add to your feed" boxes, and feed posts
 injected from your own activity, from someone's reaction/follow/comment, as
 "Recommended for you" suggestions, or as Promoted ads (swapped for an empty
-placeholder so the feed doesn't collapse).
+placeholder so the feed doesn't collapse); and default the feed to "Most recent
+first" instead of "Most relevant first".
 
 ## Architecture (in brief)
 
