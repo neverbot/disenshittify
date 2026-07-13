@@ -12,16 +12,42 @@ export default {
   id: "linkedin.hide-promoted",
   platform: "linkedin",
   title: "Hide promoted posts",
-  description: "Removes Promoted (advertised) posts from the feed.",
+  description: "Replaces Promoted (advertised) posts with an empty placeholder.",
   defaultEnabled: true,
   // One combined :not(:has(a, b)) instead of two, so the browser scans a
   // listitem's svg subtree once per style recalc, not twice (matters on the
   // churn-heavy feed where every added post re-evaluates these :has rules).
   probe:
     '[role="listitem"]:has(svg[id="overflow-web-ios-small"]):not(:has(svg[id*="globe"], svg[id*="people"]))',
+  // Replace each ad with a fixed-height placeholder card instead of removing it.
+  // display:none collapses the post to 0 height, so a feed that is mostly ads
+  // shrinks to almost nothing and LinkedIn's infinite scroll keeps fetching the
+  // next (also ad-heavy) page in a runaway loop. A constant 200px placeholder
+  // keeps the feed tall enough that infinite scroll behaves. The children are
+  // display:none'd (their svg still lives in the DOM, so the :has match stays
+  // stable — no oscillation) and the label is drawn with ::after.
   css: `
     [role="listitem"]:has(svg[id="overflow-web-ios-small"]):not(:has(svg[id*="globe"], svg[id*="people"])) {
+      height: 200px !important;
+      min-height: 200px !important;
+      max-height: 200px !important;
+      box-sizing: border-box !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      overflow: hidden !important;
+      margin-bottom: 8px !important;
+      background: #ffffff !important;
+      border: 1px dashed #c7c7c7 !important;
+      border-radius: 8px !important;
+    }
+    [role="listitem"]:has(svg[id="overflow-web-ios-small"]):not(:has(svg[id*="globe"], svg[id*="people"])) > * {
       display: none !important;
+    }
+    [role="listitem"]:has(svg[id="overflow-web-ios-small"]):not(:has(svg[id*="globe"], svg[id*="people"]))::after {
+      content: "This was promoted content" !important;
+      color: #6b6b6b !important;
+      font-size: 14px !important;
     }
   `,
 };
