@@ -28,8 +28,9 @@ default the timeline to Following; plus always-on desktop layout tweaks
 
 Hide the "Grow your business faster" Page upsell (Try Premium + Advertise), the
 right-sidebar "Today's puzzles" and "Add to your feed" boxes, and feed posts
-injected from your own activity, from someone's reaction/follow/comment, or as
-Promoted ads.
+injected from your own activity, from someone's reaction/follow/comment, as
+"Recommended for you" suggestions, or as Promoted ads (swapped for an empty
+placeholder so the feed doesn't collapse).
 
 ## Architecture (in brief)
 
