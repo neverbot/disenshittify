@@ -23,6 +23,7 @@ import linkedinHideFeedRecs from "../features/linkedin/hide-feed-recs.js";
 import linkedinHideActivityPosts from "../features/linkedin/hide-activity-posts.js";
 import linkedinHideReactionPosts from "../features/linkedin/hide-reaction-posts.js";
 import linkedinHidePromoted from "../features/linkedin/hide-promoted.js";
+import linkedinHideRecommended from "../features/linkedin/hide-recommended.js";
 
 export const features = [
   hideHomeFeed,
@@ -50,6 +51,7 @@ export const features = [
   linkedinHideActivityPosts,
   linkedinHideReactionPosts,
   linkedinHidePromoted,
+  linkedinHideRecommended,
 ];
 
 export function featuresByPlatform(platform) {
