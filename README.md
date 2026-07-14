@@ -15,8 +15,9 @@ per-navigation toast plus toolbar badge report how much was hidden.
 
 ### YouTube
 
-Hide the home feed, Shorts, recommendations (sidebar + end-screen), comments,
-ads, Explore, "More from YouTube", and subscription recommendations.
+Hide the home feed, Shorts (feed and search), recommendations (sidebar +
+end-screen), comments, ads, Explore, "More from YouTube", subscription
+recommendations, and the "Explore more topics" shelf.
 
 ### X / Twitter
 
