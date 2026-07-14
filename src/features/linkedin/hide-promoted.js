@@ -26,6 +26,9 @@ export default {
   // keeps the feed tall enough that infinite scroll behaves. The children are
   // display:none'd (their svg still lives in the DOM, so the :has match stays
   // stable — no oscillation) and the label is drawn with ::after.
+  // No margin here: the feed list is a flex column with gap:8px, so adding a
+  // margin would stack on top of that gap and make the space below placeholders
+  // bigger than between normal posts.
   css: `
     [role="listitem"]:has(svg[id="overflow-web-ios-small"]):not(:has(svg[id*="globe"], svg[id*="people"])) {
       height: 200px !important;
@@ -36,7 +39,6 @@ export default {
       align-items: center !important;
       justify-content: center !important;
       overflow: hidden !important;
-      margin-bottom: 8px !important;
       background: #ffffff !important;
       border: 1px dashed #c7c7c7 !important;
       border-radius: 8px !important;
