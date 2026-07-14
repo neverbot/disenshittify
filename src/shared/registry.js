@@ -37,8 +37,8 @@ export const features = [
   hideMoreFromYoutube,
   hideSubscriptionRecs,
   hideExploreTopics,
-  twitterHideAds,
   twitterDefaultFollowing,
+  twitterHideAds,
   twitterHidePremium,
   twitterHideSidebarWidgets,
   twitterHideGrok,
@@ -48,6 +48,7 @@ export const features = [
   twitterHideCompose,
   twitterFloatPostButton,
   twitterCompactSearch,
+  linkedinDefaultFeedSort,
   linkedinHidePageUpsell,
   linkedinHidePuzzles,
   linkedinHideFeedRecs,
@@ -55,7 +56,6 @@ export const features = [
   linkedinHideReactionPosts,
   linkedinHidePromoted,
   linkedinHideRecommended,
-  linkedinDefaultFeedSort,
 ];
 
 export function featuresByPlatform(platform) {
