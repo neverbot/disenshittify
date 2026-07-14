@@ -15,8 +15,16 @@ export default {
   defaultEnabled: true,
   probe:
     '[role="listitem"]:has(svg[id="trending-small"]):not(:has(svg[id="overflow-web-ios-small"]))',
+  // Hide the listitem AND its [data-lazy-mount-id] flex-item wrapper. The feed is
+  // a flex column with gap:8px; a display:none listitem leaves its wrapper as a
+  // zero-height flex item that still collects the 8px gap on both sides, so runs
+  // of hidden posts inflate the space between visible ones. Collapsing the wrapper
+  // removes it from the flex flow. Same conditions on the wrapper (one post per
+  // wrapper) — no nested :has (Firefox rejects it). The listitem rule stays as a
+  // fallback for any post not under a mount wrapper.
   css: `
-    [role="listitem"]:has(svg[id="trending-small"]):not(:has(svg[id="overflow-web-ios-small"])) {
+    [role="listitem"]:has(svg[id="trending-small"]):not(:has(svg[id="overflow-web-ios-small"])),
+    [data-lazy-mount-id]:has(svg[id="trending-small"]):not(:has(svg[id="overflow-web-ios-small"])) {
       display: none !important;
     }
   `,

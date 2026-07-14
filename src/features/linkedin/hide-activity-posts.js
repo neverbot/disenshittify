@@ -16,8 +16,13 @@ export default {
   defaultEnabled: true,
   probe:
     '[role="listitem"]:has(h2 + div + hr):not(:has(h2 + div a[href*="/in/"], h2 + div a[href*="/company/"]))',
+  // Hide the listitem AND its [data-lazy-mount-id] flex-item wrapper, so a run of
+  // hidden posts doesn't inflate the 8px flex gap between the visible ones around
+  // them (see hide-recommended.js). Same conditions on the wrapper — no nested
+  // :has. The listitem rule stays as a fallback.
   css: `
-    [role="listitem"]:has(h2 + div + hr):not(:has(h2 + div a[href*="/in/"], h2 + div a[href*="/company/"])) {
+    [role="listitem"]:has(h2 + div + hr):not(:has(h2 + div a[href*="/in/"], h2 + div a[href*="/company/"])),
+    [data-lazy-mount-id]:has(h2 + div + hr):not(:has(h2 + div a[href*="/in/"], h2 + div a[href*="/company/"])) {
       display: none !important;
     }
   `,
