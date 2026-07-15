@@ -6,7 +6,7 @@ export default {
   description: "Removes Shorts shelves, the sidebar entry, and search results.",
   defaultEnabled: true,
   probe:
-    'ytd-reel-shelf-renderer, ytd-rich-shelf-renderer[is-shorts], grid-shelf-view-model:has(ytm-shorts-lockup-view-model), a[title="Shorts"], ytd-guide-entry-renderer:has(a[href^="/shorts"])',
+    'ytd-reel-shelf-renderer, ytd-rich-shelf-renderer[is-shorts], grid-shelf-view-model:has(ytm-shorts-lockup-view-model), ytd-guide-entry-renderer:has(a[href^="/shorts"])',
   css: `
     /* Shorts shelves in feed and search (older reel/rich shelves). */
     ytd-reel-shelf-renderer,
@@ -23,13 +23,11 @@ export default {
     ytm-shorts-lockup-view-model,
     ytm-shorts-lockup-view-model-v2,
 
-    /* Sidebar entry, both the full guide and the mini guide. Anchored on the
-       /shorts href (reliable) plus the title as a fallback. */
+    /* Sidebar entry, both the full guide and the mini guide. Anchored purely on
+       the /shorts href (the Shorts nav entry always links there); the entries
+       carry no aria-label="Shorts" (verified), so no localized-text anchor. */
     ytd-guide-entry-renderer:has(a[href^="/shorts"]),
-    ytd-guide-entry-renderer:has(a[title="Shorts"]),
-    ytd-mini-guide-entry-renderer:has(a[href^="/shorts"]),
-    ytd-mini-guide-entry-renderer[aria-label="Shorts"],
-    a[title="Shorts"] {
+    ytd-mini-guide-entry-renderer:has(a[href^="/shorts"]) {
       display: none !important;
     }
   `,
