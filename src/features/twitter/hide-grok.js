@@ -1,18 +1,19 @@
-// Selectors are candidates — verify against live X/Twitter DOM.
+// "Grok" is a brand name — it stays literally "Grok" in every language — so
+// matching aria-label*="Grok" is language-independent (unlike the old exact
+// "Grok actions" / "Explain this post" labels, which localize). Structural
+// anchors where they exist: the /i/grok nav link and the GrokDrawer testid.
 export default {
   id: "twitter.hide-grok",
   platform: "twitter",
   title: "Hide Grok",
-  description: "Removes Grok from the sidebar, the floating button, and the per-post Grok/Explain actions.",
+  description: "Removes Grok from the sidebar, the floating button, and the per-post Grok actions.",
   defaultEnabled: true,
-  probe:
-    'a[href="/i/grok"], button[aria-label="Grok"], button[aria-label="Grok actions"], [aria-label="Explain this post"]',
+  probe: 'a[href="/i/grok"], [data-testid="GrokDrawer"], button[aria-label*="Grok"]',
   css: `
-    header nav a[href="/i/grok"],
-    button[aria-label="Grok"],
-    button[aria-label="Grok actions"],
-    [aria-label="Explain this post"],
-    [aria-label="Explica esta publicación"],
+    a[href="/i/grok"],
+    [data-testid="GrokDrawer"],
+    button[aria-label*="Grok"],
+    [role="button"][aria-label*="Grok"],
     /* The "Profile Summary" Grok button in profile HoverCards. It carries no
        testid/aria (the follow button does), so target the testid-less button. */
     [data-testid="HoverCard"] button:not([data-testid]) {

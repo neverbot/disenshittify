@@ -5,9 +5,12 @@ export default {
   title: "Hide Premium",
   description: "Removes the Subscribe to Premium box and the Premium nav item.",
   defaultEnabled: true,
-  probe: 'aside[aria-label="Subscribe to Premium"], a[href="/i/premium_sign_up"]',
+  // The upsell box is the sidebar aside that holds the premium sign-up link;
+  // anchor on that href, not the localized aria-label "Subscribe to Premium".
+  probe:
+    '[data-testid="sidebarColumn"] aside:has(a[href*="premium_sign_up"]), a[href="/i/premium_sign_up"]',
   css: `
-    aside[aria-label="Subscribe to Premium"],
+    [data-testid="sidebarColumn"] aside:has(a[href*="premium_sign_up"]),
     header nav a[href="/i/premium_sign_up"] {
       display: none !important;
     }
