@@ -1,6 +1,6 @@
 {
   "name": "disenshittify",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Firefox extension that removes enshittification features from platforms (YouTube first)",
   "type": "module",
   "private": true,
