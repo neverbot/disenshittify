@@ -8,6 +8,7 @@
     "build": "node esbuild.config.mjs",
     "dev": "concurrently -k -n esbuild,web-ext \"node esbuild.config.mjs --watch\" \"web-ext run --source-dir dist\"",
     "lint": "npm run build && web-ext lint --source-dir dist",
+    "package": "npm run build && web-ext build --source-dir dist --artifacts-dir web-ext-artifacts --overwrite-dest",
     "test": "vitest run",
     "test:watch": "vitest"
   },
