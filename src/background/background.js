@@ -8,7 +8,11 @@ function applyIcon() {
   const area = api.storage.sync || api.storage.local;
   area.get(MASTER_KEY, (items) => {
     const on = (items || {})[MASTER_KEY] !== false;
-    api.action.setIcon({ path: on ? "icons/icon.svg" : "icons/icon-off.svg" });
+    api.action.setIcon({
+      path: on
+        ? { 16: "icons/icon-16.png", 32: "icons/icon-32.png", 48: "icons/icon-48.png" }
+        : { 16: "icons/icon-off-16.png", 32: "icons/icon-off-32.png", 48: "icons/icon-off-48.png" },
+    });
   });
 }
 
