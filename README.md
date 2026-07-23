@@ -52,11 +52,46 @@ and packaging, and [Vitest](https://vitest.dev/) for unit tests.
 
 ```bash
 npm install
-npm run dev     # esbuild --watch + web-ext run (Firefox with auto-reload)
-npm test        # Vitest (engine + registry)
-npm run lint    # web-ext lint
-npm run build   # production build + packaged .xpi
+npm run dev             # esbuild --watch + web-ext run (Firefox with auto-reload)
+npm test                # Vitest (engine + registry)
+npm run lint            # web-ext lint
+npm run build           # bundle src/ -> dist/
+npm run package         # build + zip dist/ into web-ext-artifacts/ (the add-on)
+npm run package:source  # zip the tracked sources (for AMO source review)
 ```
+
+## Build instructions (for reviewers)
+
+The published add-on is **bundled** with [esbuild](https://esbuild.github.io/):
+the JavaScript files inside the add-on package are generated, not written by
+hand. There is **no minification and no obfuscation** — the bundles keep the
+original identifiers and carry `// src/…` comments marking where each block came
+from. Nothing is generated or evaluated at runtime in the user's browser; the
+whole build happens beforehand on the developer's machine.
+
+**Requirements:** Node.js 20 or newer, and npm. No other tooling. Built and
+verified on macOS; nothing in the build is platform-specific.
+
+**Steps:**
+
+```bash
+npm ci        # installs the exact versions pinned in package-lock.json
+npm run build # runs esbuild.config.mjs, producing dist/
+```
+
+`dist/` is byte-for-byte the content of the published add-on package, which is
+produced by `npm run package` (`web-ext build --source-dir dist`).
+
+**What maps to what:**
+
+| File in the add-on | Origin |
+| --- | --- |
+| `platforms/youtube.js`, `platforms/twitter.js`, `platforms/linkedin.js` | esbuild bundles of the matching `src/platforms/*.js` entry points |
+| `background/background.js` | esbuild bundle of `src/background/background.js` |
+| `popup/popup.js` | esbuild bundle of `src/popup/popup.js` |
+| `manifest.json`, `icons/`, `popup/popup.html`, `popup/popup.css` | copied verbatim |
+
+The entry points are declared in `esbuild.config.mjs`.
 
 ## License
 
