@@ -1,8 +1,8 @@
 # Claude Code local project context / config
 /.claude/
 
-# Superpowers specs / plans (local working docs)
-/docs/superpowers/
+# Local working docs (superpowers specs/plans, AMO listing drafts, notes)
+/docs/
 
 # impeccable design context (local working docs)
 /product.md
