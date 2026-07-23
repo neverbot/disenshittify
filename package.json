@@ -9,6 +9,7 @@
     "dev": "concurrently -k -n esbuild,web-ext \"node esbuild.config.mjs --watch\" \"web-ext run --source-dir dist\"",
     "lint": "npm run build && web-ext lint --source-dir dist",
     "package": "npm run build && web-ext build --source-dir dist --artifacts-dir web-ext-artifacts --overwrite-dest",
+    "package:source": "mkdir -p web-ext-artifacts && git archive --format=zip --prefix=disenshittify-$npm_package_version-source/ -o web-ext-artifacts/disenshittify-$npm_package_version-source.zip HEAD",
     "test": "vitest run",
     "test:watch": "vitest"
   },
