@@ -100,11 +100,11 @@ function header(doc, config, onChange) {
   el.className = "popup__header";
   const title = doc.createElement("h1");
   title.className = "popup__title";
-  title.textContent = "disenshittify";
+  title.textContent = "Disenshittify";
   el.appendChild(title);
   const master = makeCheckbox(doc, MASTER_KEY, config[MASTER_KEY] !== false, onChange);
   master.title = "Enable / disable everything";
-  master.setAttribute("aria-label", "Enable disenshittify");
+  master.setAttribute("aria-label", "Enable Disenshittify");
   el.appendChild(master);
   return el;
 }
@@ -177,7 +177,7 @@ function settingsPanel(doc, panel, config, onChange) {
   link.href = "https://github.com/neverbot/disenshittify";
   link.target = "_blank";
   link.rel = "noopener noreferrer";
-  link.textContent = "disenshittify";
+  link.textContent = "Disenshittify";
   version.appendChild(link);
   panel.appendChild(version);
 }

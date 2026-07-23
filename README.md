@@ -1,4 +1,4 @@
-# disenshittify
+# Disenshittify
 
 A Firefox extension that removes "enshittification" features from platforms —
 the recommendation walls, Shorts, infinite feeds, upsells, and other

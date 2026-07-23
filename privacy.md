@@ -2,11 +2,11 @@
 
 _Last updated: 2026-07-16_
 
-**disenshittify** does not collect, store, transmit, or sell any personal data.
+**Disenshittify** does not collect, store, transmit, or sell any personal data.
 
 ## What the extension does
 
-disenshittify runs entirely in your browser. It hides or restyles parts of
+Disenshittify runs entirely in your browser. It hides or restyles parts of
 YouTube, X/Twitter, and LinkedIn pages that you choose to remove. It does this
 by injecting CSS and a small amount of JavaScript into those pages locally.
 
