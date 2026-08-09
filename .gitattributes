@@ -1,0 +1,7 @@
+# Keep the AMO source zip (produced by `npm run package:source`, i.e.
+# `git archive HEAD`) to the strict minimum needed to reproduce the build.
+# These paths stay tracked in the repo but are excluded from `git archive`.
+
+# Listing assets (AMO product-page screenshots), not build inputs.
+screenshots/ export-ignore
+.gitattributes export-ignore
