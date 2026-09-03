@@ -11,11 +11,22 @@ let timer;
 let done = false;
 
 function findTrigger() {
-  const firstPost = document.querySelector('[role="listitem"]');
+  // LinkedIn now wraps the "Start a post" composer as a [role="listitem"] too,
+  // and it sits BEFORE the sort control — so the first listitem is no longer a
+  // feed post and "button before the first listitem" stopped matching (the sort
+  // control follows the composer). Anchor on the first REAL post instead: the
+  // first listitem carrying an <h2> ("Feed post" SR heading, which the composer
+  // lacks). The sort control is the [role="button"][aria-expanded] inside <main>
+  // positioned before it (the other aria-expanded buttons are footer links).
+  const firstPost = [...document.querySelectorAll('[role="listitem"]')].find((li) =>
+    li.querySelector("h2"),
+  );
   if (!firstPost) return null; // wait until the feed exists
   return (
     [...document.querySelectorAll('[role="button"][aria-expanded]')].find(
-      (b) => b.compareDocumentPosition(firstPost) & Node.DOCUMENT_POSITION_FOLLOWING,
+      (b) =>
+        b.closest("main") &&
+        b.compareDocumentPosition(firstPost) & Node.DOCUMENT_POSITION_FOLLOWING,
     ) || null
   );
 }
