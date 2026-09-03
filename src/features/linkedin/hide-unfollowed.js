@@ -7,9 +7,11 @@
 // few seconds after render (so a `data-view-name="edge-creation-follow-action"`
 // anchor un-matches once hydration completes — do NOT use it). The persistent,
 // language-invariant tell is the inline **Follow** button's icon `svg#add-small`:
-//   1. a post whose author you do NOT follow carries a Follow button (icon
-//      `svg#add-small`); a followed/connected author's post has none. This is the
-//      core discriminator (verified: followed-author posts match nothing here).
+//   1. a post whose author you have no relationship with carries an inline
+//      Follow button (icon `svg#add-small`) OR a Connect button (icon
+//      `svg#connect-small` — LinkedIn shows Connect instead of Follow for some
+//      2nd/3rd+ people); a followed/connected author's post has neither. This is
+//      the core discriminator (verified: followed-author posts match nothing).
 //   2. require a visibility icon (`svg#globe-*` public / `svg#people-*`
 //      connections) — real posts carry one, PROMOTED posts do not, so this
 //      excludes ads (hide-promoted owns those via its 200px placeholder).
@@ -33,9 +35,9 @@
 // post ever embeds an `svg#add-small` in its body (e.g. an inline "follow a
 // mentioned page" affordance) it could be caught; none observed.
 const MATCH =
-  '[role="listitem"]:has(svg[id="add-small"]):has(svg[id*="globe"], svg[id*="people"]):not(:has(h2 + div + hr)):not(:has(svg[id="trending-small"]))';
+  '[role="listitem"]:has(svg[id="add-small"], svg[id="connect-small"]):has(svg[id*="globe"], svg[id*="people"]):not(:has(h2 + div + hr)):not(:has(svg[id="trending-small"]))';
 const WRAPPER =
-  '[data-lazy-mount-id]:has(svg[id="add-small"]):has(svg[id*="globe"], svg[id*="people"]):not(:has(h2 + div + hr)):not(:has(svg[id="trending-small"]))';
+  '[data-lazy-mount-id]:has(svg[id="add-small"], svg[id="connect-small"]):has(svg[id*="globe"], svg[id*="people"]):not(:has(h2 + div + hr)):not(:has(svg[id="trending-small"]))';
 
 export default {
   id: "linkedin.hide-unfollowed",
