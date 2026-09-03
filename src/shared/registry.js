@@ -27,6 +27,7 @@ import linkedinHideActivityPosts from "../features/linkedin/hide-activity-posts.
 import linkedinHideReactionPosts from "../features/linkedin/hide-reaction-posts.js";
 import linkedinHidePromoted from "../features/linkedin/hide-promoted.js";
 import linkedinHideRecommended from "../features/linkedin/hide-recommended.js";
+import linkedinHideUnfollowed from "../features/linkedin/hide-unfollowed.js";
 import linkedinDefaultFeedSort from "../features/linkedin/default-feed-sort.js";
 
 export const features = [
@@ -60,6 +61,7 @@ export const features = [
   linkedinHideReactionPosts,
   linkedinHidePromoted,
   linkedinHideRecommended,
+  linkedinHideUnfollowed,
 ];
 
 export function featuresByPlatform(platform) {
