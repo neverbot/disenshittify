@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Disenshittify",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Strip ads, Shorts, Grok, promoted posts, and algorithmic clutter from YouTube, X/Twitter, and LinkedIn. Every feature a toggle.",
   "homepage_url": "https://github.com/neverbot/disenshittify",
   "icons": {
