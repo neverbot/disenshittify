@@ -14,7 +14,15 @@ const api = typeof browser !== "undefined" ? browser : chrome;
 // (e.g. YouTube's "yt-navigate-finish"); URL changes are also detected via the
 // observer so platforms without such an event (X/Twitter) still reset the
 // once-per-navigation toast.
-export function boot(platform, { navEvents = [] } = {}) {
+// `activeWhen(location)` gates the whole platform's features by URL: when it
+// returns false the engine is synced with an all-disabled map, so every injected
+// <style> is removed and no JS feature runs. LinkedIn uses this to confine its
+// feed features to the home feed — a profile's `/in/…` Activity section (and
+// other pages) reuses the exact feed-post DOM, so without a gate hide-promoted &
+// co. fire there as false positives (and add needless :has recalc cost). The gate
+// is re-evaluated on SPA navigation (URL change), so styles come and go as you
+// move between /feed and a profile without a reload.
+export function boot(platform, { navEvents = [], activeWhen = () => true } = {}) {
   // Idempotency guard: never let two content-script instances run in the same
   // document (each would add its own MutationObserver, <style> tags and report
   // loop — doubling our footprint on a heavy SPA).
@@ -25,11 +33,18 @@ export function boot(platform, { navEvents = [] } = {}) {
   const features = featuresByPlatform(platform);
 
   let currentConfig = {};
+  let active = true;
   let toastShownForNav = false;
   let lastUrl = location.href;
 
+  // Enabled map honoring both the user's config and the URL gate: outside the
+  // active URL everything is off (styles removed, counts zero).
+  function currentEnabled() {
+    return active ? resolveEnabled(features, currentConfig) : {};
+  }
+
   function report() {
-    const enabled = resolveEnabled(features, currentConfig);
+    const enabled = currentEnabled();
     const counts = countHits(features, enabled);
     const summary = summarize(counts);
     try {
@@ -49,7 +64,8 @@ export function boot(platform, { navEvents = [] } = {}) {
 
   async function apply() {
     currentConfig = await getConfig();
-    engine.sync(features, resolveEnabled(features, currentConfig), () => currentConfig);
+    active = !!activeWhen(location);
+    engine.sync(features, currentEnabled(), () => currentConfig);
     report();
   }
 
@@ -63,8 +79,12 @@ export function boot(platform, { navEvents = [] } = {}) {
       if (location.href !== lastUrl) {
         lastUrl = location.href;
         toastShownForNav = false;
+        // URL changed (SPA nav): re-evaluate the gate and re-sync styles for the
+        // new page — features may switch on (entering /feed) or off (a profile).
+        apply();
+      } else {
+        report();
       }
-      report();
     }, 800);
   });
 
@@ -74,7 +94,7 @@ export function boot(platform, { navEvents = [] } = {}) {
   // against the MV3 background event page unloading its in-memory report).
   api.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     if (msg && msg.type === "dsh:getCounts") {
-      const enabled = resolveEnabled(features, currentConfig);
+      const enabled = currentEnabled();
       const counts = countHits(features, enabled);
       sendResponse({ counts, ...summarize(counts) });
     }
