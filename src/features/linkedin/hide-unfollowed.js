@@ -14,9 +14,11 @@
 // (`svg#connect-small`) — present only when you have no relationship with the
 // author (a followed/connected author's post has neither). Catch both (an add-only
 // anchor left Connect-button posts visible — a shipped leak). Then:
-//   - require a visibility icon (`svg#globe-*` public / `svg#people-*`
-//     connections) — real posts carry one, PROMOTED posts do not, so this excludes
-//     ads (hide-promoted owns those);
+//   - require the per-post dismiss "X" (`svg#close-small`) — every organic post
+//     carries it but a PROMOTED post does not, so this excludes ads (hide-promoted
+//     owns those, and keys on the same signal). (This used to require a visibility
+//     icon `svg#globe-*`/`svg#people-*`, but LinkedIn removed those from feed posts
+//     in 2026-09 — see hide-promoted.js — which had silently zeroed this feature.)
 //   - `:not(:has(h2 + div + hr))` excludes injected reaction/activity posts (whose
 //     relationship button lives in the reason header) — hide-reaction-posts /
 //     hide-activity-posts own those;
@@ -37,7 +39,7 @@
 // collapse (rule 13) and no margin: the placeholder has real height, and the feed's
 // flex gap:8px already spaces it.
 const MATCH =
-  '[role="listitem"]:has(svg[id="add-small"], svg[id="connect-small"]):has(svg[id*="globe"], svg[id*="people"]):not(:has(h2 + div + hr)):not(:has(svg[id="trending-small"]))';
+  '[role="listitem"]:has(svg[id="add-small"], svg[id="connect-small"]):has(svg[id="close-small"]):not(:has(h2 + div + hr)):not(:has(svg[id="trending-small"]))';
 
 export default {
   id: "linkedin.hide-unfollowed",
